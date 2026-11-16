@@ -1,0 +1,19 @@
+---
+const typename = Astro.params.type;  //Astro.params is an object Astro automatically provides in dynamic route files. It contains the URL segments that match the [bracketed] parts of your file name.
+
+
+const response = await fetch(`https://pokeapi.co/api/v2/type/${typename}/`)
+if (!response.ok) {
+  throw new Error(`API returned ${response.status}`);
+}
+const data = await response.json()
+const types = JSON.stringify(data,null,2)
+const pokemon = data.pokemon.map((pokemon)=>(pokemon.pokemon.name))
+---
+
+<ul>
+  {pokemon.map((name)=><li><a href=`/pokemon/${name}`>{name}</a> </li>)}
+</ul>
+
+<!-- {dynamic}---> backticks -->
+// fixed url ---> ""
